@@ -4,7 +4,7 @@
 #include <Windows.h>
 #include <direct.h>
 
-#pragma warning(disable : 4996) // makes sure you dont get warning about "outdated" functions like fopen isntead of fopen_s
+#pragma warning(disable : 4996) // makes sure you dont get warning about "outdated" functions like fopen isntead of fopen_s (only if you're gonna compile for yourself)
 
 int main(int argc, char*argv[]) {
 	if (argc < 2) { // checks if amount of arguments is enough

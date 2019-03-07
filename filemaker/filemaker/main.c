@@ -4,33 +4,50 @@
 #include <Windows.h>
 #include <direct.h>
 
-#define GetCurrentDir _getcwd
-#define FILENAME_MAX
+#pragma warning(disable : 4996)
 
 int main(int argc, char*argv[]) {
-	if (argc < 2 ) {
-		printf("Not enough arguments given: usage [name]");
-		return;
-	}
-	char* path = argv[0];
-
-	for (int i = strlen(argv[0]); i > 0; i--) {
-		if (path[i] == '\\') {
-			path[i + 1] = '\0';
-			break;
-		}
-		path[i] = 0;
+	if (argc < 2) {
+		printf("Not enough arguments given: usage %s [name]\n", *argv);
+		return -1;
 	}
 
-	strcat(path, argv[1]);
-	char* path2 = malloc(strlen(path));
-	strcpy(path2, path);
+	size_t alen = strlen(argv[1]);
+	char * h = malloc(alen + 3);
+	char * cpp = malloc(alen + 5);
 
-	strcat(path, ".cpp");
-	strcat(path2, ".h");
-	printf(path);
-	FILE * fp = fopen(path, "w");
-	FILE * fp2 = fopen(path2, "w");
+	if ((h == NULL) || (cpp == NULL)) {
+		puts("not enough memory");
+		return -1;
+	}
 
-	return;
+	strcpy(h, argv[1]);
+	strcpy(h + alen, ".h");
+	strcpy(cpp, argv[1]);
+	strcpy(cpp + alen, ".cpp");
+
+	FILE * fph = fopen(h, "w");
+
+	if (fph == NULL) {
+		printf("cannot open %s\n", h);
+		return -1;
+	}
+
+	FILE * fpcpp = fopen(cpp, "w");
+
+	if (fpcpp == NULL) {
+		printf("cannot open %s\n", cpp);
+		return -1;
+	}
+
+
+	free(h);
+	free(cpp);
+
+	/* write in files */
+
+	fclose(fph);
+	fclose(fpcpp);
+
+	return 0;
 }

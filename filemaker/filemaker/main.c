@@ -87,6 +87,8 @@ int main(int argc, char*argv[]) {
 	fprintf(fpcpp, "() \{ \n\n\} % \n\n"); // brackets for deconstructor
 	// ==================================================================
 
+	free(name); // free space on memory of name
+
 	fclose(fph); // close file fph
 	fclose(fpcpp); //close file fpcpp
 

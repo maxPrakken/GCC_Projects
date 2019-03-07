@@ -44,20 +44,29 @@ int main(int argc, char*argv[]) {
 	free(h); // free space on memory of location h
 	free(cpp); // free space on memory of location cpp
 
+	char c;
+	char* name = malloc(alen); // makes new char* name, to check for captial letter
+	strcpy(name, argv[1]); // copies argv[1] into name
+	c = name[0];
+	if (c >= 97 && c < 123) { // checks if first letter is a captial letter or not
+		c = c - 32; // not capital letter, so we change it to one
+		name[0] = c;
+	}
+
 	// ==================================================================
 	// makes default .h file
 	// ==================================================================
 	fprintf(fph, "#pragma once\n\n#include <iostream>\n\nclass %"); // sets default includes and pragma once
-	fprintf(fph, argv[1]); // class name
+	fprintf(fph, name); // class name
 	fprintf(fph, " \{ %\n"); // opening bracket for class
 	fprintf(fph, "public: %\n"); // public variable declaration
 	fprintf(fph, "	//default constructor %\n"); //comment
 	fprintf(fph, "	"); // spaces for indentation
-	fprintf(fph, argv[1], "%\n"); // constructor declaration
+	fprintf(fph, name, "%\n"); // constructor declaration
 	fprintf(fph, "(); %\n"); // brackets for constructor
 	fprintf(fph, "	//default deconstructor %\n"); // comment
 	fprintf(fph, "	virtual \~%"); //virtual declaration for deconstructor
-	fprintf(fph, argv[1], "%\n"); // deconstructor name
+	fprintf(fph, name, "%\n"); // deconstructor name
 	fprintf(fph, "(); %\n\n"); //brackets for deconstructor
 	fprintf(fph, "private: %\n\n"); // private variables declaration
 	fprintf(fph, "\}; %"); // closing bracket for class
@@ -65,16 +74,16 @@ int main(int argc, char*argv[]) {
 	// makes default .cpp file for .h file
 	// ==================================================================
 	fprintf(fpcpp, "#include \"%"); // include call
-	fprintf(fpcpp, argv[1], "%\n"); // include name
+	fprintf(fpcpp, name, "%\n"); // include name
 	fprintf(fpcpp, ".h\" %\n\n"); // get include name extention
-	fprintf(fpcpp, argv[1], "%"); // .h class name
+	fprintf(fpcpp, name, "%"); // .h class name
 	fprintf(fpcpp, "::%"); // double double dots
-	fprintf(fpcpp, argv[1], "%"); // constructor
+	fprintf(fpcpp, name, "%"); // constructor
 	fprintf(fpcpp, "() \{ \n\n\} % \n\n"); // brackets for constructor
-	fprintf(fpcpp, argv[1], "%"); // .h class name
+	fprintf(fpcpp, name, "%"); // .h class name
 	fprintf(fpcpp, "::%"); // double double dots
 	fprintf(fpcpp, "~%");
-	fprintf(fpcpp, argv[1], "%"); // deconstructor
+	fprintf(fpcpp, name, "%"); // deconstructor
 	fprintf(fpcpp, "() \{ \n\n\} % \n\n"); // brackets for deconstructor
 	// ==================================================================
 

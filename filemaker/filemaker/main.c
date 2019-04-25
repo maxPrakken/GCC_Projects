@@ -43,7 +43,7 @@ int main(int argc, char*argv[]) {
 
 	free(h); // free space on memory of location h
 	free(cpp); // free space on memory of location cpp
-
+	
 	char c;
 	char* name = malloc(alen); // makes new char* name, to check for captial letter
 	strcpy(name, argv[1]); // copies argv[1] into name
